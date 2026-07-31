@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arjun Ari Photography</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FDFAF5;
+    --warm-white: #FFF8F0;
+    --gold: #E8A830;
+    --terracotta: #D4734A;
+    --sage: #7A9E7E;
+    --navy: #1C2B4A;
+    --charcoal: #2D2D2D;
+    --mid: #666;
+    --light: #999;
+    --border: #E8E0D4;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(253,250,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 13px; color: #444; text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 0 0;
+    overflow: hidden;
+  }
+  .hero-left { padding: 80px 64px; }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #9A7200; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 5vw, 72px); font-weight: 300; line-height: 1.05; color: var(--navy); margin-bottom: 24px; }
+  .hero h1 em { font-style: italic; color: #A0522D; }
+  .hero-sub { font-size: 15px; color: #444; line-height: 1.8; font-weight: 300; margin-bottom: 40px; max-width: 420px; }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: #fff;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 16px 36px; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: var(--terracotta); }
+  .hero-right {
+    height: 100vh;
+    display: grid; grid-template-rows: 1fr 1fr; grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .hero-img { overflow: hidden; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .hero-img:hover img { transform: scale(1.04); }
+  .hero-img:first-child { grid-row: span 2; }
+
+  section { padding: 96px 64px; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #9A7200; margin-bottom: 16px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 52px); font-weight: 300; color: #0F1F3D; line-height: 1.15; margin-bottom: 20px; }
+  .section-body { font-size: 15px; color: #444; line-height: 1.8; font-weight: 300; }
+
+  /* ABOUT */
+  .about-inner { display: flex; align-items: center; gap: 80px; max-width: 1100px; margin: 0 auto; }
+  .about-img { flex-shrink: 0; width: 380px; height: 480px; border-radius: 3px; overflow: hidden; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; }
+  .about-text { flex: 1; }
+  .about-stats { display: flex; gap: 48px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--border); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: #A0522D; }
+  .stat-label { font-size: 11px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 6px;
+    max-width: 1200px; margin: 48px auto 0;
+  }
+  .gitem { overflow: hidden; border-radius: 2px; cursor: pointer; }
+  .gitem img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; display: block; }
+  .gitem:hover img { transform: scale(1.04); }
+  .gitem:nth-child(1) { grid-column: span 2; height: 420px; }
+  .gitem:nth-child(2) { height: 420px; }
+  .gitem:nth-child(3) { height: 420px; }
+  .gitem:nth-child(4) { height: 300px; }
+  .gitem:nth-child(5) { height: 300px; }
+  .gitem:nth-child(6) { height: 300px; grid-column: span 2; }
+  .gitem:nth-child(7) { height: 300px; grid-column: span 2; }
+
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+  .service-card { background: #fff; border: 1px solid #C0B8AE; border-radius: 3px; padding: 40px 32px; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+  .service-card:hover { transform: translateY(-4px); z-index: 1; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { display: none; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: #0F1F3D; margin-bottom: 12px; }
+  .service-desc { font-size: 14px; color: #333; line-height: 1.75; font-weight: 300; }
+  .service-tag { display: inline-block; margin-top: 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #9A7200; }
+
+  /* INSTAGRAM */
+  .instagram { background: var(--warm-white); text-align: center; padding: 64px; }
+  .ig-handle { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 300; color: var(--navy); margin: 12px 0 8px; }
+  .ig-handle span { color: #9A7200; }
+  .ig-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #A0522D; text-decoration: none; border-bottom: 1px solid #A0522D; padding-bottom: 2px; transition: opacity 0.2s; }
+  .ig-link:hover { opacity: 0.7; }
+
+  /* CONTACT */
+  .contact-inner { max-width: 660px; margin: 0 auto; text-align: center; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; margin-top: 48px; text-align: left; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-field label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #444; margin-bottom: 8px; }
+  .form-field input, .form-field select, .form-field textarea { width: 100%; padding: 14px 16px; background: #fff; border: 1px solid var(--border); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--charcoal); outline: none; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold); }
+  .form-field textarea { resize: vertical; min-height: 120px; }
+  .form-submit { width: 100%; background: var(--navy); color: #fff; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 18px; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
+  .form-submit:hover { background: var(--terracotta); }
+
+  footer { background: var(--navy); padding: 36px 64px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: rgba(255,255,255,0.9); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .footer-ig { font-size: 12px; color: var(--gold); text-decoration: none; }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 999; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+  .lightbox-close { position: absolute; top: 24px; right: 32px; color: #fff; font-size: 32px; cursor: pointer; opacity: 0.7; }
+  .lightbox-close:hover { opacity: 1; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 60px; }
+    section { padding: 64px 24px; }
+    .about-inner { flex-direction: column; }
+    .about-img { width: 100%; height: 300px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gitem:nth-child(1), .gitem:nth-child(6), .gitem:nth-child(7) { grid-column: span 1; height: 240px; }
+    .gitem:nth-child(2), .gitem:nth-child(3), .gitem:nth-child(4), .gitem:nth-child(5) { height: 240px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#"><img src="logo.png" alt="Arjun Ari Photography" style="height:44px; width:44px; object-fit:cover; border-radius:50%; display:block;"></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Book</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Nashville & Bay Area</div>
+    <h1>Moments worth<br><em>remembering</em></h1>
+    <p class="hero-sub">Weddings, engagements, portraits, and events — photographed with warmth, care, and a genuine love for the craft.</p>
+    <a href="#contact" class="hero-cta">Book a Session →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img"><img src="img1.jpg" alt="Engagement session in rose garden"></div>
+    <div class="hero-img"><img src="img3.jpg" alt="Beach silhouette portrait"></div>
+    <div class="hero-img"><img src="img5.jpg" alt="Nature portrait in bloom"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" style="background: #EDE8E0;">
+  <div class="about-inner">
+    <div class="about-img">
+      <img src="img7.jpg" alt="Coastal photography">
+    </div>
+    <div class="about-text">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Hi, I'm Arjun</h2>
+      <p class="section-body" style="color:#333;">I'm a photographer based between Nashville, TN and the Bay Area, CA. I believe the best photos don't feel staged — they feel true. Whether I'm shooting a wedding, a LinkedIn headshot, or a community event, I bring the same attention to light, emotion, and the small moments that make a big difference.</p>
+      <p class="section-body" style="margin-top:16px; color:#333;">I've had the privilege of documenting weddings, engagements, and meaningful events — including photography for the American Red Cross. Every session is a chance to tell a story that lasts.</p>
+      <div class="about-stats">
+        <div><div class="stat-num">50+</div><div class="stat-label">Sessions Shot</div></div>
+        <div><div class="stat-num">2</div><div class="stat-label">Cities</div></div>
+        <div><div class="stat-num">∞</div><div class="stat-label">Memories Made</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="work" style="background: var(--cream);">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">Recent Work</h2>
+  <div class="gallery-grid">
+    <div class="gitem" onclick="openLightbox('img1.jpg')"><img src="img1.jpg" alt="Engagement in rose garden"></div>
+    <div class="gitem" onclick="openLightbox('img3.jpg')"><img src="img3.jpg" alt="Beach silhouette"></div>
+    <div class="gitem" onclick="openLightbox('img5.jpg')"><img src="img5.jpg" alt="Garden portrait"></div>
+    <div class="gitem" onclick="openLightbox('img2.jpg')"><img src="img2.jpg" alt="Fishing at the lake"></div>
+    <div class="gitem" onclick="openLightbox('img6.jpg')"><img src="img6.jpg" alt="Autumn portrait"></div>
+    <div class="gitem" onclick="openLightbox('img4.jpg')"><img src="img4.jpg" alt="Evening street portrait"></div>
+    <div class="gitem" onclick="openLightbox('img7.jpg')"><img src="img7.jpg" alt="Beach waves"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background: #F0EBE3;">
+  <div class="section-label">What I Offer</div>
+  <h2 class="section-title">Services</h2>
+  <div class="services-grid">
+    <div class="service-card"><span class="service-icon">💍</span><div class="service-name">Weddings</div><p class="service-desc">Your wedding day deserves to be captured fully — from the quiet moments before the ceremony to the last dance of the night.</p><div class="service-tag">Full day coverage available</div></div>
+    <div class="service-card"><span class="service-icon">🌸</span><div class="service-name">Engagements</div><p class="service-desc">Engagement sessions are about more than a great photo — they're a chance to get comfortable in front of the camera before your big day.</p><div class="service-tag">Location scouting included</div></div>
+    <div class="service-card"><span class="service-icon">💼</span><div class="service-name">LinkedIn Headshots</div><p class="service-desc">A professional headshot that actually looks like you. Clean, confident, and ready to make a great first impression.</p><div class="service-tag">Same-day turnaround available</div></div>
+    <div class="service-card"><span class="service-icon">🎉</span><div class="service-name">Events</div><p class="service-desc">Campus events, corporate gatherings, fundraisers, and everything in between. I blend in, stay sharp, and deliver photos that capture the energy.</p><div class="service-tag">Nonprofit rates available</div></div>
+    <div class="service-card"><span class="service-icon">❤️</span><div class="service-name">Red Cross & Nonprofit</div><p class="service-desc">I've worked with the American Red Cross documenting their mission-driven work. I offer discounted rates for nonprofits and community organizations.</p><div class="service-tag">Community-first pricing</div></div>
+    <div class="service-card"><span class="service-icon">🎓</span><div class="service-name">Campus & Student Life</div><p class="service-desc">Graduation portraits, Greek life events, club photos — I know campus life because I live it. Available across Vanderbilt and the Bay Area.</p><div class="service-tag">Student pricing available</div></div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<div class="instagram" style="background:#EDE8E0;">
+  <div class="section-label">Follow Along</div>
+  <div class="ig-handle">@<span>arjunariphotography</span></div>
+  <p style="font-size:14px; color: #444; margin-top: 8px;">Behind the scenes, recent work, and more on Instagram.</p>
+  <a href="https://instagram.com/arjunariphotography" target="_blank" class="ig-link">View Instagram →</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Book a Session</h2>
+    <p class="section-body" style="max-width:500px; margin: 0 auto;">Ready to work together? Reach out through any of the channels below and I'll get back to you within 24 hours.</p>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px;">
+      <a href="mailto:ari.arjun@gmail.com" style="text-decoration:none;">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:3px; padding:28px 24px; display:flex; align-items:center; gap:16px; transition: border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:28px;">✉️</span>
+          <div>
+            <div style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#444; margin-bottom:6px;">Email</div>
+            <div style="font-size:14px; color:var(--navy); font-weight:400;">ari.arjun@gmail.com</div>
+          </div>
+        </div>
+      </a>
+      <a href="tel:4085050672" style="text-decoration:none;">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:3px; padding:28px 24px; display:flex; align-items:center; gap:16px; transition: border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:28px;">📱</span>
+          <div>
+            <div style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#444; margin-bottom:6px;">Phone / Text</div>
+            <div style="font-size:14px; color:var(--navy); font-weight:400;">(408) 505-0672</div>
+          </div>
+        </div>
+      </a>
+      <a href="https://instagram.com/arjunariphotography" target="_blank" style="text-decoration:none;">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:3px; padding:28px 24px; display:flex; align-items:center; gap:16px; transition: border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:28px;">📸</span>
+          <div>
+            <div style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#444; margin-bottom:6px;">Instagram</div>
+            <div style="font-size:14px; color:var(--navy); font-weight:400;">@arjunariphotography</div>
+          </div>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/arjun-ari-9a1a772b0" target="_blank" style="text-decoration:none;">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:3px; padding:28px 24px; display:flex; align-items:center; gap:16px; transition: border-color 0.2s; cursor:pointer;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+          <span style="font-size:28px;">💼</span>
+          <div>
+            <div style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#444; margin-bottom:6px;">LinkedIn</div>
+            <div style="font-size:14px; color:var(--navy); font-weight:400;">Arjun Ari</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="logo.png" alt="Arjun Ari Photography" style="height:48px; width:48px; object-fit:cover; border-radius:50%;">
+  <div class="footer-copy">© 2026 Arjun Ari Photography</div>
+  <a href="https://instagram.com/arjunariphotography" target="_blank" class="footer-ig">@arjunariphotography</a>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">×</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = "✓ Sent — I'll be in touch within 24 hours!";
+  btn.style.background = '#7A9E7E';
+  setTimeout(() => { btn.textContent = 'Send Inquiry →'; btn.style.background = ''; e.target.reset(); }, 4000);
+}
+</script>
+</body>
+</html>
